@@ -71,7 +71,7 @@ def list_user():
     }), 200
 
 
-@app.put("/users/{id}")
+@app.put("/users/<int:id>")
 def update_user(id):
     data = request.get_json()
     username = data.get("username")
@@ -92,7 +92,7 @@ def update_user(id):
     return jsonify(response.data), 200
 
 
-@app.delete("/users/{id}")
+@app.delete("/users/<int:id>")
 def delete_user(id):
     data = request.get_json()
     username = data.get("username")
