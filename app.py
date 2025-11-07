@@ -103,12 +103,15 @@ def delete_user(id):
     if not all([username, password, email, nama]):
         return jsonify({"error": "Semua field wajib diisi"}), 400
     
-    response = supabase.table("users").update({
-        "username": username,
-        "password": password,
-        "email": email,
-        "nama": nama
-    }).execute()
+    response = (
+        supabase
+        .table("users")
+        .delete()
+        .eq("id", id)
+        .execute()
+    )
+    if len(response.data) == 0:
+        return jsonify({"error": "User dengan ID tersebut tidak ditemukan"}), 404
     
     return jsonify(response.data), 200
 
