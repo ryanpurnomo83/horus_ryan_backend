@@ -16,14 +16,118 @@ def welcome():
     flask_logo_url = url_for('static', filename='Flask_logo.png')
     horus_logo_url = url_for('static', filename='horus_logo.png')
     return f"""
-    <br>
-    <div style='display: flex;flex-direction: row; justify-content: center;'>
-        <img src='{flask_logo_url}' alt='Flask Logo' width='30%'>
-        <br>
-        <img src='{horus_logo_url}' alt='Flask Logo' width='30%'>
-    </div>
-    <br>
-    <p style='text-align:center;'>Selamat Datang di Flask</p>
+    <html>
+    <head>
+        <title>Flask API Docs</title>
+        <style>
+            body {{
+                font-family: "Segoe UI", Arial, sans-serif;
+                background-color: #f9fafb;
+                margin: 0;
+                padding: 0;
+                color: #333;
+            }}
+            .header {{
+                text-align: center;
+                padding: 30px 0 5px;
+                color: black;
+            }}
+            .header img{{
+                width: 45%;
+            }}
+            .logo-container {{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 40px;
+                margin-top: 20px;
+            }}
+            .logo-container img {{
+                width: 120px;
+                height: auto;
+                filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+            }}
+            h1 {{
+                text-align: center;
+                color: #444;
+                margin-top: 40px;
+            }}
+            .docs {{
+                max-width: 700px;
+                margin: 0 auto;
+                background: white;
+                padding: 30px;
+                border-radius: 10px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            }}
+            h2 {{
+                color: #ff914d;
+                border-left: 5px solid #ff914d;
+                padding-left: 10px;
+                margin-top: 30px;
+            }}
+            ul {{
+                list-style: none;
+                padding-left: 20px;
+            }}
+            li {{
+                background-color: #f1f3f5;
+                margin: 6px 0;
+                padding: 10px 15px;
+                border-radius: 5px;
+                font-family: monospace;
+                color: #333;
+            }}
+            li:hover {{
+                background-color: #e9ecef;
+            }}
+            footer {{
+                text-align: center;
+                margin: 40px 0;
+                font-size: 14px;
+                color: #777;
+            }}
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <img src="{flask_logo_url}" alt="Flask Logo">
+            <h1>Welcome to Flask</h1>
+            <p>Interactive API Documentation</p>
+        </div>
+
+        <div class="logo-container">
+            <img src="{horus_logo_url}" alt="Horus Logo">
+        </div>
+
+        <div class="docs">
+            <h2>POST</h2>
+            <ul>
+                <li>/users/register</li>
+                <li>/users/login</li>
+            </ul>
+
+            <h2>GET</h2>
+            <ul>
+                <li>/users/</li>
+            </ul>
+
+            <h2>PUT</h2>
+            <ul>
+                <li>/users/&lt;id&gt;</li>
+            </ul>
+
+            <h2>DELETE</h2>
+            <ul>
+                <li>/users/&lt;id&gt;</li>
+            </ul>
+        </div>
+
+        <footer>
+            Powered by Flask
+        </footer>
+    </body>
+    </html>
     """
 
 @app.post("/users/register")
