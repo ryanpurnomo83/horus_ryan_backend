@@ -13,7 +13,7 @@ supabase: Client = create_client(url, key)
 
 @app.route("/")
 def welcome():
-    flask_logo_url = url_for('static', filename='flask_logo.png')
+    flask_logo_url = url_for('static', filename='Flask_logo.png')
     horus_logo_url = url_for('static', filename='horus_logo.png')
     return f"""
     <br>
