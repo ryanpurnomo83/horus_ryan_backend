@@ -6,6 +6,7 @@ from flask import Flask, request, jsonify, url_for
 from flask_cors import CORS
 
 app = Flask(__name__)
+app.config["SECRET_KEY"] = "supersecretkey123"
 
 CORS(app, resources={r"/*": {"origins": ["http://localhost:5173", "http://127.0.0.1:5173", "http://192.168.1.4:5173", "http://192.168.1.4:8080"]}})
 
@@ -179,7 +180,7 @@ def login_user():
         "username" : user["username"],
         "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=1)
     }
-    token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
+    token = jwt.encode(payload, app.config["SECRET_KEY"], algorithm="HS256")
     
     return jsonify({
         "message" : "Login berhasil",
