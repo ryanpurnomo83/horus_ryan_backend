@@ -154,7 +154,7 @@ def register_user():
 @app.post("/users/login")
 def login_user():
     data = request.get_json()
-    username = data.get("username"),
+    username = data.get("username")
     password = data.get("password")
     if not all([username, password]):
         return jsonify({"error": "Semua field wajib diisi"}, 400)
