@@ -1,4 +1,6 @@
-import os 
+import os
+import jwt
+import datetime
 from supabase import create_client , Client
 from flask import Flask, request, jsonify, url_for
 from flask_cors import CORS
@@ -171,8 +173,17 @@ def login_user():
         return jsonify({"error": "Username atau password salah"}), 401
     
     user = response.data[0]
+    
+    payload = {
+        "id" : user["id"],
+        "username" : user["username"],
+        "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=1)
+    }
+    token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
+    
     return jsonify({
         "message" : "Login berhasil",
+        "token": token,
         "user" : {
             "id" : user["id"],
             "username" : user["username"],
