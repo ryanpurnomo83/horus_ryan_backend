@@ -1,0 +1,30 @@
+# Abaikan folder utama aplikasi Flask
+app/
+
+# Abaikan folder migrations hasil flask db init
+migrations/
+
+NI/
+
+# Abaikan file Python cache dan virtual environment
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Abaikan file environment dan konfigurasi lokal
+.env
+*.env
+.env.*
+
+# Abaikan folder virtual environment (kalau ada)
+venv/
+.venv/
+
+# Abaikan file database lokal (jika digunakan SQLite)
+*.db
+*.sqlite3
+
+# Abaikan file log dan cache
+*.log
+*.cache/

@@ -1,5 +1,6 @@
 import os
 import jwt
+import bcrypt
 import datetime
 from supabase import create_client , Client
 from flask import Flask, request, jsonify, url_for
@@ -13,6 +14,8 @@ CORS(app, resources={r"/*": {"origins": ["http://localhost:5173", "http://127.0.
 url: str = "https://otkvvqgnyojmuwagbbpq.supabase.co"
 key: str = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90a3Z2cWdueW9qbXV3YWdiYnBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0NTMzNjQsImV4cCI6MjA3ODAyOTM2NH0.c_cH8fntvWoB5wI2m6ETFz2pVZedPSOoUBKEh5rGZrs"
 supabase: Client = create_client(url, key)
+
+app.register_blueprint(users_bp, url_prefix="/users")
 
 @app.route("/")
 def welcome():
@@ -144,9 +147,11 @@ def register_user():
     if not all([username, password, email, nama]):
         return jsonify({"error": "Semua field wajib diisi"}), 400
     
+    hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+    
     response = supabase.table("users").insert({
         "username": username,
-        "password": password,
+        "password": hashed_password,
         "email": email,
         "nama": nama
     }).execute()
@@ -227,15 +232,6 @@ def update_user(id):
 
 @app.delete("/users/<int:id>")
 def delete_user(id):
-    data = request.get_json()
-    username = data.get("username")
-    password = data.get("password")
-    email = data.get("email")
-    nama = data.get("nama")
-    
-    if not all([username, password, email, nama]):
-        return jsonify({"error": "Semua field wajib diisi"}), 400
-    
     response = (
         supabase
         .table("users")
@@ -248,10 +244,5 @@ def delete_user(id):
     
     return jsonify(response.data), 200
 
-
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
-    
-
-# https://otkvvqgnyojmuwagbbpq.supabase.co
-# eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90a3Z2cWdueW9qbXV3YWdiYnBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0NTMzNjQsImV4cCI6MjA3ODAyOTM2NH0.c_cH8fntvWoB5wI2m6ETFz2pVZedPSOoUBKEh5rGZrs
