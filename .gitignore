@@ -6,6 +6,7 @@ migrations/
 
 NI/
 
+
 # Abaikan file Python cache dan virtual environment
 __pycache__/
 *.pyc
