@@ -15,7 +15,7 @@ url: str = "https://otkvvqgnyojmuwagbbpq.supabase.co"
 key: str = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90a3Z2cWdueW9qbXV3YWdiYnBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0NTMzNjQsImV4cCI6MjA3ODAyOTM2NH0.c_cH8fntvWoB5wI2m6ETFz2pVZedPSOoUBKEh5rGZrs"
 supabase: Client = create_client(url, key)
 
-app.register_blueprint(users_bp, url_prefix="/users")
+# app.register_blueprint(users_bp, url_prefix="/users")
 
 @app.route("/")
 def welcome():
