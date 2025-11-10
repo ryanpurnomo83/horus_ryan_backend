@@ -16,3 +16,4 @@ pandas==2.2.1
 pyJWT==2.10.1
 scikit-learn==1.5.1
 gunicorn==23.0.0
+bcrypt==4.1.3
